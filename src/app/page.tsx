@@ -1,69 +1,103 @@
-import Image from "next/image";
+import Link from "next/link";
+import { CampaignMethod } from "@/components/CampaignMethod";
+import { CampusAtmosphere } from "@/components/CampusAtmosphere";
+import { ContactCta } from "@/components/ContactCta";
+import { Container } from "@/components/Container";
+import { DeskScene } from "@/components/DeskScene";
+import { Hero } from "@/components/Hero";
+import { Marquee } from "@/components/Marquee";
+import { MarkArcs, MarkDots, MarkGrid, MarkLines, MarkRule } from "@/components/Ornaments";
+import { Principles } from "@/components/Principles";
+import { ProjectCard } from "@/components/ProjectCard";
+import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
+import { featuredProjects, site } from "@/content/site";
 
-export default function Home() {
+export default function HomePage() {
+  const featured = featuredProjects();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <Hero />
+      <Marquee />
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        <MarkArcs className="pointer-events-none absolute -left-20 top-6 hidden w-72 text-terracotta/20 lg:block" />
+        <MarkGrid className="pointer-events-none absolute -right-4 bottom-8 hidden w-44 text-ink/[0.08] lg:block" />
+        <Container className="relative grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+          <Reveal>
+            <figure>
+              <div className="media-mat print-frame">
+                <DeskScene />
+              </div>
+              <figcaption className="mt-3 text-xs tracking-wide text-ink-muted">
+                Os dois lados da mesa — peça e ferramenta.
+              </figcaption>
+            </figure>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink-muted">
+              Ofício
+            </p>
+            <h2 className="mt-3 font-display text-3xl tracking-tight sm:text-4xl">
+              Dois lados da mesma mesa.
+            </h2>
+            <MarkRule className="mt-6 w-36 text-terracotta" />
+            <p className="mt-6 text-lg leading-relaxed text-ink">
+              {site.aboutLead}
+            </p>
+            <Link
+              href="/sobre"
+              className="mt-6 inline-block text-sm text-terracotta link-underline"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              Continuar o sobre
+            </Link>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
+        <MarkDots className="pointer-events-none absolute left-8 top-12 hidden w-48 text-ink/[0.07] lg:block" />
+        <MarkLines className="pointer-events-none absolute right-10 top-24 hidden w-64 text-terracotta/20 lg:block" />
+        <CampusAtmosphere />
+        <Container className="relative">
+          <SectionHeading
+            eyebrow="Seleção"
+            title="O que está no ar."
+            action={
+              <Link
+                href="/trabalho"
+                className="text-sm text-ink-muted link-underline hover:text-ink"
+              >
+                Arquivo completo
+              </Link>
+            }
+          />
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+            {featured.map((project, index) => (
+              <Reveal key={project.slug} delay={index * 0.06}>
+                <ProjectCard project={project} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <CampaignMethod />
+
+      <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
+        <MarkArcs className="pointer-events-none absolute -right-24 -top-10 hidden w-80 text-olive/15 lg:block" />
+        <MarkDots className="pointer-events-none absolute bottom-8 left-10 hidden w-40 text-ink/[0.06] lg:block" />
+        <Container className="relative">
+          <SectionHeading
+            eyebrow="Critério"
+            title="Três critérios que eu não negocio."
+          />
+          <Principles />
+        </Container>
+      </section>
+
+      <ContactCta />
+    </>
   );
 }
