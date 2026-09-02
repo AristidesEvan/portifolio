@@ -32,17 +32,17 @@ export default function LaboratorioPage() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <Reveal className="lg:col-span-2">
+        <div className="mt-14 grid min-w-0 gap-8 lg:grid-cols-2">
+          <Reveal className="min-w-0 lg:col-span-2">
             <HeadlineComposer />
           </Reveal>
-          <Reveal delay={0.06} className="lg:col-span-2">
+          <Reveal delay={0.06} className="min-w-0 lg:col-span-2">
             <SqlConsole />
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="min-w-0">
             <FigmaFrame />
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} className="min-w-0">
             <Moodboard />
           </Reveal>
         </div>

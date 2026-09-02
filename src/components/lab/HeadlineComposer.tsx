@@ -12,7 +12,7 @@ export function HeadlineComposer() {
   return (
     <div className="lab-panel border border-line bg-cream-dark/30 p-5 sm:p-8">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="font-display text-2xl">Compositor de headline</h2>
+        <h2 className="min-w-0 font-display text-2xl">Compositor de headline</h2>
         <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
           01
         </span>
@@ -23,10 +23,10 @@ export function HeadlineComposer() {
       </p>
 
       <div
-        className="mt-8 flex min-h-[180px] items-center border-y border-line py-8"
+        className="lab-headline mt-8 flex min-h-[160px] items-center border-y border-line py-6 sm:min-h-[180px] sm:py-8"
         style={{
           fontFamily: "var(--font-display), Georgia, serif",
-          fontSize: `clamp(1.6rem, ${size / 16}vw, ${size}px)`,
+          ["--lab-headline-size" as string]: `${size}px`,
           letterSpacing: `${tracking / 100}em`,
           fontWeight: weight,
           fontStyle: italic ? "italic" : "normal",
@@ -34,7 +34,7 @@ export function HeadlineComposer() {
           lineHeight: 0.95,
         }}
       >
-        O ofício cabe na tela.
+        <p className="min-w-0 max-w-full">O ofício cabe na tela.</p>
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -72,7 +72,7 @@ export function HeadlineComposer() {
             className="mt-3 w-full"
           />
         </label>
-        <div className="flex items-end gap-3">
+        <div className="flex flex-wrap items-end gap-3">
           <button
             type="button"
             onClick={() => setItalic((value) => !value)}

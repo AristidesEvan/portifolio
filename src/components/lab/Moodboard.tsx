@@ -60,8 +60,8 @@ export function Moodboard() {
           <br />
           com calor.
         </p>
-        <div className="flex items-center justify-between">
-          <span className="text-sm">{palette.note}</span>
+        <div className="flex items-center justify-between gap-3">
+          <span className="min-w-0 text-sm">{palette.note}</span>
           <span
             className="size-4 rounded-full"
             style={{ background: palette.accent }}

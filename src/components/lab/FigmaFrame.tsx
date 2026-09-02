@@ -18,7 +18,7 @@ export function FigmaFrame() {
   return (
     <div className="lab-panel border border-line bg-cream-dark/30 p-5 sm:p-8">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="font-display text-2xl">Frame com auto-layout</h2>
+        <h2 className="min-w-0 font-display text-2xl">Frame com auto-layout</h2>
         <span className="text-[11px] uppercase tracking-[0.22em] text-ink-muted">
           03
         </span>
@@ -28,9 +28,7 @@ export function FigmaFrame() {
         sem arquivo .fig.
       </p>
 
-      <div
-        className="relative mt-8 min-h-[220px] border border-dashed border-ink/20 bg-[repeating-conic-gradient(var(--cream-dark)_0%_25%,transparent_0%_50%)] bg-[length:16px_16px] p-6"
-      >
+      <div className="relative mt-8 min-h-[220px] overflow-hidden border border-dashed border-ink/20 bg-[repeating-conic-gradient(var(--cream-dark)_0%_25%,transparent_0%_50%)] bg-[length:16px_16px] p-4 sm:p-6">
         <p className="pointer-events-none absolute left-2 top-1 font-mono text-[10px] tracking-wide text-ink-muted">
           Frame 1 · {padding} · {gap}
         </p>

@@ -57,12 +57,32 @@ const TABLE: Row[] = [
 ];
 
 const PRESETS = [
-  "SELECT * FROM competencias",
-  "SELECT * FROM competencias WHERE area = 'desenho'",
-  "SELECT * FROM competencias WHERE area = 'codigo'",
-  "SELECT * FROM competencias WHERE area = 'origem'",
-  "SELECT * FROM competencias WHERE area = 'operacao'",
-];
+  {
+    sql: "SELECT * FROM competencias",
+    short: "todos",
+    long: "SELECT *",
+  },
+  {
+    sql: "SELECT * FROM competencias WHERE area = 'desenho'",
+    short: "desenho",
+    long: "SELECT * WHERE area = 'desenho'",
+  },
+  {
+    sql: "SELECT * FROM competencias WHERE area = 'codigo'",
+    short: "codigo",
+    long: "SELECT * WHERE area = 'codigo'",
+  },
+  {
+    sql: "SELECT * FROM competencias WHERE area = 'origem'",
+    short: "origem",
+    long: "SELECT * WHERE area = 'origem'",
+  },
+  {
+    sql: "SELECT * FROM competencias WHERE area = 'operacao'",
+    short: "operacao",
+    long: "SELECT * WHERE area = 'operacao'",
+  },
+] as const;
 
 function fold(value: string) {
   return value.normalize("NFD").replace(/\p{M}/gu, "");
@@ -108,7 +128,7 @@ function runQuery(sql: string): { rows: Row[]; error?: string } {
 }
 
 export function SqlConsole() {
-  const [sql, setSql] = useState(PRESETS[0]);
+  const [sql, setSql] = useState<string>(PRESETS[0].sql);
   const result = useMemo(() => runQuery(sql), [sql]);
 
   return (
@@ -127,15 +147,18 @@ export function SqlConsole() {
       <div className="mt-6 flex flex-wrap gap-2">
         {PRESETS.map((preset) => (
           <button
-            key={preset}
+            key={preset.sql}
             type="button"
-            onClick={() => setSql(preset)}
+            onClick={() => setSql(preset.sql)}
             className={`rounded-full border px-3 py-1.5 text-left text-[11px] tracking-wide hover:border-terracotta hover:text-terracotta ${
-              sql === preset ? "border-terracotta text-terracotta" : "border-line"
+              sql === preset.sql
+                ? "border-terracotta text-terracotta"
+                : "border-line"
             }`}
-            aria-pressed={sql === preset}
+            aria-pressed={sql === preset.sql}
           >
-            {preset.replace("SELECT * FROM competencias", "SELECT *")}
+            <span className="lg:hidden">{preset.short}</span>
+            <span className="hidden lg:inline">{preset.long}</span>
           </button>
         ))}
       </div>
@@ -147,35 +170,49 @@ export function SqlConsole() {
           onChange={(event) => setSql(event.target.value)}
           spellCheck={false}
           rows={3}
-          className="w-full resize-y border border-line bg-cream px-3 py-3 font-mono text-sm outline-none focus-visible:border-terracotta"
+          className="w-full resize-y border border-line bg-cream px-3 py-3 font-mono text-base outline-none focus-visible:border-terracotta lg:text-sm"
         />
       </label>
 
       {result.error ? (
         <p className="mt-5 text-sm text-terracotta">{result.error}</p>
       ) : (
-        <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[28rem] text-left text-sm">
-            <thead>
-              <tr className="border-b border-line text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-                <th className="py-2 pr-4 font-medium">area</th>
-                <th className="py-2 pr-4 font-medium">ferramenta</th>
-                <th className="py-2 font-medium">nota</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.rows.map((row) => (
-                <tr key={`${row.area}-${row.ferramenta}`} className="border-b border-line/70">
-                  <td className="py-3 pr-4 font-mono text-xs text-terracotta">
-                    {row.area}
-                  </td>
-                  <td className="py-3 pr-4">{row.ferramenta}</td>
-                  <td className="py-3 text-ink-muted">{row.nota}</td>
+        <>
+          <ul className="mt-5 divide-y divide-line lg:hidden">
+            {result.rows.map((row) => (
+              <li key={`${row.area}-${row.ferramenta}`} className="py-3">
+                <p className="font-mono text-xs text-terracotta">{row.area}</p>
+                <p className="mt-1 text-sm">{row.ferramenta}</p>
+                <p className="mt-1 text-sm text-ink-muted">{row.nota}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 hidden overflow-x-auto lg:block">
+            <table className="w-full min-w-[28rem] text-left text-sm">
+              <thead>
+                <tr className="border-b border-line text-[11px] uppercase tracking-[0.18em] text-ink-muted">
+                  <th className="py-2 pr-4 font-medium">area</th>
+                  <th className="py-2 pr-4 font-medium">ferramenta</th>
+                  <th className="py-2 font-medium">nota</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {result.rows.map((row) => (
+                  <tr
+                    key={`${row.area}-${row.ferramenta}`}
+                    className="border-b border-line/70"
+                  >
+                    <td className="py-3 pr-4 font-mono text-xs text-terracotta">
+                      {row.area}
+                    </td>
+                    <td className="py-3 pr-4">{row.ferramenta}</td>
+                    <td className="py-3 text-ink-muted">{row.nota}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CampusAtmosphere } from "@/components/CampusAtmosphere";
 import { Container } from "@/components/Container";
-import { InstagramEmbed } from "@/components/InstagramEmbed";
+import { InstagramProfile } from "@/components/InstagramProfile";
 import { NextCaseCard } from "@/components/NextCaseCard";
 import { ProjectCoverArt } from "@/components/ProjectCoverArt";
 import { getProject, instagramHandle, projects } from "@/content/site";
@@ -111,41 +111,31 @@ export default async function ProjectPage({ params }: Props) {
         </p>
       </Container>
 
-      {project.instagram ? (
+      {project.instagram && project.instagramProfile ? (
         <section className="relative overflow-hidden border-y border-line bg-cream-dark/50">
-            <div
-              className="pointer-events-none absolute -left-20 top-10 size-64 rounded-full bg-terracotta/10 blur-3xl"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute -right-16 bottom-0 size-72 rounded-full bg-olive/10 blur-3xl"
-              aria-hidden
-            />
-            <Container className="relative grid items-center gap-12 py-16 lg:grid-cols-[1fr_auto] lg:gap-20 lg:py-20">
-              <div className="order-2 max-w-md lg:order-1">
-                <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-terracotta">
-                  Canal
-                </p>
-                <h2 className="mt-3 font-display text-3xl tracking-tight sm:text-4xl">
-                  O Instagram, no próprio feed.
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-ink-muted">
-                  Uma seleção do que publiquei por lá — no telefone, sobre a
-                  mesa.
-                </p>
-                <a
-                  href={project.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-ghost mt-8"
-                >
-                  Abrir @{igHandle}
-                </a>
-              </div>
-              <div className="order-1 lg:order-2">
-                <InstagramEmbed handle={igHandle} url={project.instagram} />
-              </div>
-            </Container>
+          <div
+            className="pointer-events-none absolute -left-20 top-10 size-64 rounded-full bg-terracotta/10 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -right-16 bottom-0 size-72 rounded-full bg-olive/10 blur-3xl"
+            aria-hidden
+          />
+          <Container className="relative py-16 lg:py-20">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-terracotta">
+              Canal
+            </p>
+            <h2 className="mt-3 max-w-xl font-display text-3xl tracking-tight sm:text-4xl">
+              O perfil que subi do zero.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-muted">
+              Nome, tom, números — o canal da coordenação, como peça. Um retrato
+              do @cead.pucgoias.
+            </p>
+            <div className="mt-10">
+              <InstagramProfile project={project} />
+            </div>
+          </Container>
         </section>
       ) : null}
 

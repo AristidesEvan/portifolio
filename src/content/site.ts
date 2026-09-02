@@ -14,6 +14,19 @@ export type Project = {
   href?: string;
   hrefLabel?: string;
   instagram?: string;
+  instagramProfile?: {
+    name: string;
+    bio: string[];
+    location: string;
+    avatar: string;
+    stats: { value: string; label: string }[];
+    around?: {
+      src: string;
+      alt: string;
+      caption: string;
+      href: string;
+    }[];
+  };
   summary: string;
   problem: string;
   direction: string;
@@ -222,6 +235,36 @@ export const projects: Project[] = [
     href: "https://cead.pucgoias.edu.br/",
     hrefLabel: "cead.pucgoias.edu.br",
     instagram: "https://www.instagram.com/cead.pucgoias/",
+    instagramProfile: {
+      name: "Coordenação EaD PUC Goiás",
+      bio: [
+        "CEAD | Coordenação de Ensino à Distância",
+        "PUC GO — Conhecimento a serviço da vida",
+        "📚 Informações e contatos no feed…",
+      ],
+      location:
+        "Av. 1ª Avenida, 458-590 — Setor Leste Universitário, Goiânia, GO",
+      avatar: "/work/cead-perfil.jpg",
+      stats: [
+        { value: "480", label: "posts" },
+        { value: "1.630", label: "seguidores" },
+        { value: "29", label: "seguindo" },
+      ],
+      around: [
+        {
+          src: "/work/cead.jpg",
+          alt: "Home do site da CEAD PUC Goiás",
+          caption: "O site que o perfil aponta",
+          href: "https://cead.pucgoias.edu.br/",
+        },
+        {
+          src: "/work/pucgoias.jpg",
+          alt: "Portal da PUC Goiás",
+          caption: "A instituição por trás",
+          href: "https://www.pucgoias.edu.br/",
+        },
+      ],
+    },
     summary:
       "A Coordenação de Educação a Distância precisava de casa própria na web e de um canal que falasse com o aluno EaD. Eu subi os dois: o site e o @cead.pucgoias.",
     problem:
